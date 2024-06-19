@@ -5,7 +5,22 @@ import bcrypt from 'bcrypt';
 
 const userSchema = new Schema(
   {
-    userName: {
+    firstname: {
+      type: String,
+      required: true,
+      trim: true,
+      min: 5,
+      max: 20,
+    },
+
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
+      min: 5,
+      max: 20,
+    },
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -20,15 +35,9 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true,
     },
-    fullName: {
-      type: String,
-      required: true,
-      trim: true,
-      index: true,
-    },
+
     avatar: {
       type: String,
-      required: true,
     },
 
     password: {
@@ -64,7 +73,6 @@ userSchema.methods.generateAccessToken = function () {
       _id: this._id,
       userName: this.userName,
       email: this.email,
-      fullName: this.fullName,
     },
     process.env.ACCESS_TOKEN_SECRETKEY,
     { expiresIn: process.env.ACCESS_TOKEN_TIME_DURATION }

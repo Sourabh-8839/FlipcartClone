@@ -1,1 +1,1 @@
-export const DB_NAME = 'Flipcart';
+export const DB_NAME = 'ecommerce';

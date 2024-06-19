@@ -3,6 +3,9 @@ import userIcon from '../../assets/images/profile-52e0dc.svg';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Login from '../login/Login';
 import { useState } from 'react';
+import { useData } from '../../contexts/index.js';
+
+import Profile from './Profile.jsx';
 
 const CustomContainer = styled(Box)`
   margin-left: 20px;
@@ -45,15 +48,21 @@ const CartDiv = styled(Box)`
 const CustomButton = () => {
   const [open, setOpen] = useState(false);
 
+  const { account, setAccount } = useData();
+
   const loginOpenHandler = () => {
     setOpen(true);
   };
   return (
     <CustomContainer>
-      <ButtonContainer onClick={loginOpenHandler}>
-        <img src={userIcon} alt='' />
-        <span>Login</span>
-      </ButtonContainer>
+      {account ? (
+        <Profile account={account} setAccount={setAccount} />
+      ) : (
+        <ButtonContainer onClick={loginOpenHandler}>
+          <img src={userIcon} alt='' />
+          <span>Login</span>
+        </ButtonContainer>
+      )}
 
       <Typography>Become a Seller</Typography>
       <Typography>More</Typography>

@@ -4,15 +4,16 @@ import './App.css';
 import Header from './components/header/Header';
 import { Box } from '@mui/material';
 import Home from './components/Home/Home';
+import { DataProvider } from './contexts';
 
 function App() {
   return (
-    <div>
+    <DataProvider>
       <Header />
       <Box style={{ marginTop: '60px' }}>
         <Home />
       </Box>
-    </div>
+    </DataProvider>
   );
 }
 
