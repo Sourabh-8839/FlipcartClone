@@ -1,6 +1,6 @@
 import { Box, Button, TextField, styled } from '@mui/material';
 
-import { authentication } from '../../../service/api';
+import { authentication } from '../../service/api';
 import { useState } from 'react';
 import { useData } from '../../contexts/data.context';
 

@@ -1,13 +1,17 @@
 import { Box, styled } from '@mui/material';
-import React from 'react';
+
 import { navData } from '../../../constants/constants';
 import Navheader from './Navheader';
 
-const NavbarContainer = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  margin: 50px 130px 0 130px;
-`;
+const NavbarContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  margin: '50px 130px 0 130px',
+  overflow: 'hidden',
+  [theme.breakpoints.down('lg')]: {
+    margin: 0,
+  },
+}));
 const Navbar = () => {
   return (
     <NavbarContainer>

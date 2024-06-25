@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema } from 'mongoose';
 
-const productSchema = mongoose.Schema(
+const productSchema = new Schema(
   {
     name: {
       type: String,
@@ -22,13 +22,12 @@ const productSchema = mongoose.Schema(
     },
     images: [
       {
-        public_id: {
-          type: String,
-          required: true,
-        },
         url: {
           type: String,
           required: true,
+        },
+        detailUrl: {
+          type: String,
         },
       },
     ],
@@ -36,16 +35,24 @@ const productSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please Enter Product Category'],
     },
+
     Stock: {
       type: Number,
       required: [true, 'Please Enter product Stock'],
       maxLength: [4, 'Stock cannot exceed 4 characters'],
       default: 1,
     },
+    tagline: {
+      type: String,
+    },
+    discount: {
+      type: String,
+    },
     numOfReviews: {
       type: Number,
       default: 0,
     },
+
     reviews: [
       {
         user: {
@@ -81,4 +88,4 @@ const productSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Product', productSchema);
+export const Product = mongoose.model('Product', productSchema);

@@ -4,8 +4,8 @@ import { User } from '../models/user.schema.js';
 import { ApiResponse } from '../Utilies/apiResponse.js';
 
 let options = {
-  httpOnly: true,
-  secure: true,
+  httpOnly: false,
+  secure: false,
 };
 
 const genreateRefreshTokenAndaccessToken = async (user_id) => {

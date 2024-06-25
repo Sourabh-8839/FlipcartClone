@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Signup from '../signup/Signup';
-import { loginUser } from '../../../service/api';
+import { loginUser } from '../../service/api';
 import { useData } from '../../contexts';
 
 const Wrapper = styled(Box)`
