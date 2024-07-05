@@ -5,6 +5,7 @@ import { Product } from '../models/product.schema.js';
 import { ApiResponse } from '../Utilies/apiResponse.js';
 
 import ApiFeatures from '../Utilies/apiFeatures.js';
+import { ApiError } from '../Utilies/apiError.js';
 
 const createProduct = asyncHandler(async (req, res, next) => {
   const avatarLocalFilePath = req.file?.path;
@@ -41,22 +42,22 @@ const createProduct = asyncHandler(async (req, res, next) => {
 });
 
 const getAllProducts = asyncHandler(async (req, res, next) => {
-  //   const resultPerPage = 8;
-  //   const productsCount = await Product.countDocuments();
+  const resultPerPage = 4;
+  const productsCount = await Product.countDocuments();
 
-  //   const apiFeature = new ApiFeatures(Product.find(), req.query)
-  //     .search()
-  //     .filter();
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter();
 
-  //   let products = await apiFeature.query;
+  let products = await apiFeature.query;
 
-  //   let filteredProductsCount = products.length;
+  let filteredProductsCount = products.length;
 
-  //   apiFeature.pagination(resultPerPage);
+  apiFeature.pagination(resultPerPage);
 
-  //   products = await apiFeature.query;
+  // products = await apiFeature.query;
 
-  const products = await Product.find({});
+  // const products = await Product.find({});
 
   res.status(200).json(new ApiResponse(200, products, 'Get all Products'));
   //     {
@@ -68,4 +69,20 @@ const getAllProducts = asyncHandler(async (req, res, next) => {
   //   });
 });
 
-export { createProduct, getAllProducts };
+const getProduct = asyncHandler(async (req, res, next) => {
+  const id = req.params.id;
+
+  const product = await Product.findById(id);
+
+  if (!product) {
+    return res.status(404).json(new ApiError(404, 'Product not found'));
+  }
+
+  console.log(product);
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, product, 'product found succesfully'));
+});
+
+export { createProduct, getAllProducts, getProduct };

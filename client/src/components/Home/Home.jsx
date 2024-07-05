@@ -7,6 +7,7 @@ import { getProducts } from '../../redux/actions/productActions';
 import Slide from './Slides/Slide';
 import MidSlide from './Slides/MidSlide';
 import MidSection from './Slides/MidSection';
+import { useData } from '../../contexts';
 
 const ChildComponent = styled(Box)`
   padding: 10px;

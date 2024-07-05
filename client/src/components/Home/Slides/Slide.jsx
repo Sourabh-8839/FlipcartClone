@@ -3,7 +3,7 @@ import { Button, Divider, Box, Typography, styled } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Countdown from 'react-countdown';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const responsive = {
   desktop: {
@@ -124,20 +124,22 @@ const Slide = ({ products, title, timer }) => {
         {/* //   </Link> */}
         {/* ))} */}
         {products.map((item) => (
-          <Box
-            textAlign='center'
-            style={{ padding: '25px 15px' }}
+          <Link
             key={item._id}
+            to={`/product/${item._id}`}
+            style={{ textDecoration: 'none' }}
           >
-            <Image src={item.images[0].url} alt='products' key={item._id} />
-            <Text style={{ fontWeight: 600, color: '#212121' }}>
-              {item.name}
-            </Text>
-            <Text style={{ color: 'green' }}>{item.discount}</Text>
-            <Text style={{ color: '#212121', opacity: '.6' }}>
-              {item.tagline}
-            </Text>
-          </Box>
+            <Box textAlign='center' style={{ padding: '25px 15px' }}>
+              <Image src={item.images[0].url} alt='products' key={item._id} />
+              <Text style={{ fontWeight: 600, color: '#212121' }}>
+                {item.name}
+              </Text>
+              <Text style={{ color: 'green' }}>{item.discount}</Text>
+              <Text style={{ color: '#212121', opacity: '.6' }}>
+                {item.tagline}
+              </Text>
+            </Box>
+          </Link>
         ))}
       </Carousel>
     </Component>

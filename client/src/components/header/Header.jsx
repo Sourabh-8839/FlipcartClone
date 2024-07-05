@@ -1,24 +1,109 @@
 import flipcart from '../../assets/images/fkheaderlogo_exploreplus-44005d.svg';
 
-import { AppBar, Box, Toolbar, styled } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  styled,
+} from '@mui/material';
 import Search from './Search';
 import CustomButton from './CustomButton';
+import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react';
 
 const AppBarStyle = styled(AppBar)`
   background: white;
   color: black;
   // box-shadow: none;
 `;
-// const Component = styled(Box)``;
+
+const Image = styled('img')({
+  ':hover': {
+    cursor: 'pointer',
+  },
+});
+
+const CustomButtonWrapper = styled(Box)(({ theme }) => ({
+  margin: '0 5% 0 auto',
+  [theme.breakpoints.down('md')]: {
+    display: 'none',
+  },
+}));
+
+const MenuButton = styled(IconButton)(({ theme }) => ({
+  display: 'none',
+
+  [theme.breakpoints.down('md')]: {
+    display: 'block',
+  },
+}));
+
 const Header = () => {
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
+
+  const list = () => {
+    return (
+      <Box width={200}>
+        <List
+          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+          component='nav'
+          aria-labelledby='nested-list-subheader'
+        >
+          <ListItemButton>
+            {/* <ListItemIcon>
+              <SendIcon />
+            </ListItemIcon> */}
+            <ListItemText primary='Login' />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemText primary='Become a Seller' />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemText primary='More' />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemText primary='Cart' />
+          </ListItemButton>
+        </List>
+      </Box>
+    );
+  };
+
   return (
     <AppBarStyle>
       <Toolbar>
+        <MenuButton onClick={handleOpen}>
+          <MenuIcon style={{ color: 'blue' }} />
+        </MenuButton>
+        <Drawer open={open} onClose={handleClose}>
+          {list()}
+        </Drawer>
+
         <Box>
-          <img src={flipcart} alt='' style={{ height: '40px' }} />
+          <Link to={'/'}>
+            <Image src={flipcart} alt='' style={{ height: '40px' }} />
+          </Link>
         </Box>
         <Search />
-        <CustomButton />
+        <CustomButtonWrapper>
+          <CustomButton />
+        </CustomButtonWrapper>
       </Toolbar>
     </AppBarStyle>
   );
