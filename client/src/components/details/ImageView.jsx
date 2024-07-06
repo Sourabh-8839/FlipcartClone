@@ -5,7 +5,7 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { useData } from '../../contexts';
 
 import { useNavigate } from 'react-router-dom';
-import {payUsingPaytm} from '../../service/api.js'
+import { payUsingPaytm } from '../../service/api.js';
 import { post } from '../../utils/paytm.js';
 
 const LeftComponent = styled(Box)(({ theme }) => ({
@@ -49,16 +49,18 @@ const ImageView = ({ product }) => {
     navigate('/cart');
   };
 
-  const buyNow =async() =>{
+  const buyNow = async () => {
+    let response = await payUsingPaytm({
+      amount: 500,
+      email: 'codeforinterview01@gmail.com',
+    });
 
-    let response = await payUsingPaytm({ amount: 500, email: 'codeforinterview01@gmail.com'});
-
-        var information = {
-            action: 'https://securegw-stage.paytm.in/order/process',
-            params: response    
-        }
-        post(information);
-  }
+    var information = {
+      action: 'https://securegw-stage.paytm.in/order/process',
+      params: response,
+    };
+    post(information);
+  };
 
   return (
     <LeftComponent>
@@ -72,8 +74,10 @@ const ImageView = ({ product }) => {
         <ShoppingCartIcon style={{ width: '20px', margin: '0 5px' }} />
         Add To Cart
       </StyledButton>
-      <StyledButton variant='contained' style={{ background: '#FB641B' }}
-      onClick={()=>}
+      <StyledButton
+        variant='contained'
+        style={{ background: '#FB641B' }}
+        onClick={() => buyNow()}
       >
         <FlashOnIcon /> Buy Now
       </StyledButton>

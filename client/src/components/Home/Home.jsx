@@ -7,7 +7,7 @@ import { getProducts } from '../../redux/actions/productActions';
 import Slide from './Slides/Slide';
 import MidSlide from './Slides/MidSlide';
 import MidSection from './Slides/MidSection';
-import { useData } from '../../contexts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ChildComponent = styled(Box)`
   padding: 10px;
@@ -29,6 +29,7 @@ const Home = () => {
       <Navbar />
       <ChildComponent>
         <Banner />
+
         <MidSlide products={products} title='Deal of the day' timer={true} />
         <Slide products={products} title='Discount for you' timer={false} />
         <MidSection />
