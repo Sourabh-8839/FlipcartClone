@@ -15,20 +15,31 @@ const authentication = async (data) => {
 
 const loginUser = async (data) => {
   try {
-    return await axios.post(`${URL}/user/login`, data);
+    const response = await axios.post(`${URL}/user/login`, data);
+
+    localStorage.setItem('user', JSON.stringify(response.data.data));
+    return response.data;
   } catch (error) {
     console.log(error.message);
     return error.response;
   }
 };
 
-const payUsingPaytm = async (data) => {
+const payUsingStripe = async (data) => {
   try {
-    let response = await axios.post(`${URL}/payment`, data);
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    let response = await axios.post(
+      `${URL}/create-checkout-session`,
+      data,
+      headers
+    );
     return response.data;
   } catch (error) {
     console.log('Error', error);
   }
 };
 
-export { authentication, loginUser, payUsingPaytm };
+export { authentication, loginUser, payUsingStripe };

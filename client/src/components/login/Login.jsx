@@ -119,11 +119,11 @@ const Login = ({ open, setOpen }) => {
   const loginHandler = async () => {
     const response = await loginUser(login);
 
-    console.log(response.data);
-    if (response.data.statusCode === 200) {
-      const firstName = response.data.data.user.firstname;
+    console.log(response);
+
+    if (response.statusCode === 200) {
       handleClose();
-      setAccount(firstName);
+      setAccount(response.data);
     } else {
       showError(true);
     }

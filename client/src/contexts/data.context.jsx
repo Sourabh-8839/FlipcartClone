@@ -3,7 +3,9 @@ import { createContext, useContext, useState } from 'react';
 export const datacontext = createContext(null);
 
 export const DataProvider = ({ children }) => {
-  const [account, setAccount] = useState(null);
+  const intialState = JSON.parse(localStorage.getItem('user'));
+
+  const [account, setAccount] = useState(intialState);
   const [cartList, setCartList] = useState([]);
 
   const addItemToCart = (item) => {

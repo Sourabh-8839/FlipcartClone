@@ -78,7 +78,7 @@ const getProduct = asyncHandler(async (req, res, next) => {
     return res.status(404).json(new ApiError(404, 'Product not found'));
   }
 
-  console.log(product);
+  // console.log(product);
 
   res
     .status(200)

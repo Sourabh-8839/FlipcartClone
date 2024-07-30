@@ -1,12 +1,15 @@
 import { Box, Button, styled } from '@mui/material';
-import React from 'react';
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { useData } from '../../contexts';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { useNavigate } from 'react-router-dom';
-import { payUsingPaytm } from '../../service/api.js';
-import { post } from '../../utils/paytm.js';
+import { payUsingStripe } from '../../service/api.js';
+import Login from '../login/Login.jsx';
+import { useState } from 'react';
+import PlaceOrder from '../../utils/placeOrder.js';
 
 const LeftComponent = styled(Box)(({ theme }) => ({
   minWidth: '40%',
@@ -39,7 +42,8 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const ImageView = ({ product }) => {
-  const { addItemToCart } = useData();
+  const { addItemToCart, account } = useData();
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const addtoCart = () => {
@@ -49,17 +53,14 @@ const ImageView = ({ product }) => {
     navigate('/cart');
   };
 
-  const buyNow = async () => {
-    let response = await payUsingPaytm({
-      amount: 500,
-      email: 'codeforinterview01@gmail.com',
-    });
+  const makePayment = async () => {
+    if (account) {
+      let productItem = [{ ...product, quantity: 1 }];
 
-    var information = {
-      action: 'https://securegw-stage.paytm.in/order/process',
-      params: response,
-    };
-    post(information);
+      await PlaceOrder(productItem);
+    } else {
+      setOpen(true);
+    }
   };
 
   return (
@@ -77,10 +78,11 @@ const ImageView = ({ product }) => {
       <StyledButton
         variant='contained'
         style={{ background: '#FB641B' }}
-        onClick={() => buyNow()}
+        onClick={makePayment}
       >
         <FlashOnIcon /> Buy Now
       </StyledButton>
+      <Login open={open} setOpen={setOpen} />
     </LeftComponent>
   );
 };

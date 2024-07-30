@@ -9,7 +9,8 @@ import {
   getProduct,
 } from '../controllers/product.js';
 import { upload } from '../middlewares/multer.middleware.js';
-import paytmGateway from '../controllers/payment.controller.js';
+
+import addPaytmGateway from '../controllers/payment.controller.js';
 
 const router = Router();
 
@@ -19,6 +20,6 @@ router
 
 router.route('/getAllproducts').get(getAllProducts);
 router.route('/getproduct/:id').get(getProduct);
-router.route('/payment').post(paytmGateway);
+router.route('/create-checkout-session').post(addPaytmGateway);
 
 export default router;

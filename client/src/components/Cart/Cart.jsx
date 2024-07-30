@@ -3,6 +3,9 @@ import { useData } from '../../contexts';
 import CartItem from './CartItem';
 import TotalView from './TotalView';
 import EmptyCart from './EmptyCart';
+import PlaceOrder from '../../utils/placeOrder';
+import { useState } from 'react';
+import Login from '../login/Login';
 
 const Component = styled(Grid)(({ theme }) => ({
   padding: '30px 135px',
@@ -47,8 +50,17 @@ const ItemBox = styled(Box)`
 `;
 const Cart = () => {
   const { cartList, removeItemFromCart } = useData();
+  const [open, setOpen] = useState(false);
 
-  const buyNow = () => {};
+  const { account } = useData();
+
+  const buyNow = () => {
+    if (account) {
+      PlaceOrder(cartList);
+    } else {
+      setOpen(true);
+    }
+  };
 
   return (
     <>
@@ -71,7 +83,7 @@ const Cart = () => {
             </ItemBox>
 
             <BottomWrapper>
-              <StyledButton onClick={() => buyNow()} variant='contained'>
+              <StyledButton onClick={buyNow} variant='contained'>
                 Place Order
               </StyledButton>
             </BottomWrapper>
@@ -79,6 +91,8 @@ const Cart = () => {
           <Grid item lg={3} md={3} sm={12} xs={12}>
             <TotalView cartItems={cartList} />
           </Grid>
+
+          <Login open={open} setOpen={setOpen} />
         </Component>
       ) : (
         <EmptyCart />

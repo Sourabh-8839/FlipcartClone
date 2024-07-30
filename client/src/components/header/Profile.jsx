@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Logout from '@mui/icons-material/Logout';
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 const Boxdiv = styled(Box)`
   :hover {
@@ -20,6 +19,11 @@ const Boxdiv = styled(Box)`
 `;
 const Profile = ({ account, setAccount }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const userName = account?.user?.firstname;
+
+  console.log(userName);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,11 +33,12 @@ const Profile = ({ account, setAccount }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem('user');
     setAccount('');
   };
   return (
     <Boxdiv onClick={handleClick}>
-      <Typography>{account}</Typography>
+      <Typography>{userName}</Typography>
 
       <Menu
         anchorEl={anchorEl}
@@ -70,7 +75,7 @@ const Profile = ({ account, setAccount }) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => handleClose()}>
           <Avatar /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
