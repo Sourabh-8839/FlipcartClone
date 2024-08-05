@@ -14,7 +14,7 @@ const StyledButton = styled(Button)`
 const GroupButton = ({ item }) => {
   const { addItemToCart } = useData();
 
-  const [counter, setCounter] = useState(item.quantity);
+  const [counter, setCounter] = useState(1);
 
   const handleIncrement = () => {
     setCounter((counter) => counter + 1);

@@ -6,7 +6,7 @@ import { useData } from '../../contexts';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { useNavigate } from 'react-router-dom';
-import { payUsingStripe } from '../../service/api.js';
+import { AddtoCartItems, payUsingStripe } from '../../service/api.js';
 import Login from '../login/Login.jsx';
 import { useState } from 'react';
 import PlaceOrder from '../../utils/placeOrder.js';
@@ -46,10 +46,13 @@ const ImageView = ({ product }) => {
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
-  const addtoCart = () => {
+
+  const addtoCart = async () => {
     const item = { ...product, quantity: 1 };
 
     addItemToCart(item);
+    await AddtoCartItems(product._id);
+
     navigate('/cart');
   };
 

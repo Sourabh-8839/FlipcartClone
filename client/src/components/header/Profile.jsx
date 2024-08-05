@@ -22,8 +22,6 @@ const Profile = ({ account, setAccount }) => {
 
   const userName = account?.user?.firstname;
 
-  console.log(userName);
-
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

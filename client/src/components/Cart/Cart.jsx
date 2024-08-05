@@ -4,8 +4,10 @@ import CartItem from './CartItem';
 import TotalView from './TotalView';
 import EmptyCart from './EmptyCart';
 import PlaceOrder from '../../utils/placeOrder';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Login from '../login/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCartProducts } from '../../redux/actions/productActions';
 
 const Component = styled(Grid)(({ theme }) => ({
   padding: '30px 135px',
@@ -64,7 +66,7 @@ const Cart = () => {
 
   return (
     <>
-      {cartList.length ? (
+      {cartList?.length ? (
         <Component container>
           <LeftComponent item lg={9} md={9} sm={12} xs={12}>
             <Header>

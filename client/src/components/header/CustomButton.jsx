@@ -73,9 +73,9 @@ const CartNumber = styled(Box)`
 const CustomButton = () => {
   const [open, setOpen] = useState(false);
 
-  const { account, setAccount } = useData();
+  const { account, setAccount, setCartList, cartList } = useData();
 
-  const { cartList } = useData();
+  console.log(cartList);
 
   const loginOpenHandler = () => {
     setOpen(true);
@@ -84,7 +84,11 @@ const CustomButton = () => {
   return (
     <CustomContainer>
       {account ? (
-        <Profile account={account} setAccount={setAccount} />
+        <Profile
+          account={account}
+          setAccount={setAccount}
+          setCartList={setCartList}
+        />
       ) : (
         <ButtonContainer onClick={loginOpenHandler}>
           <img src={userIcon} alt='' />

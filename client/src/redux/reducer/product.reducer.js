@@ -26,3 +26,17 @@ export const getProductDetailsReducer = (state = { product: {} }, action) => {
       return state;
   }
 };
+
+export const getCartProductsReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.GET_PRODUCT_CART_REQUEST:
+      return { loading: 'true' };
+    case actionTypes.GET_PRODUCT_CART_SUCCESS:
+      return { loading: 'false', product: action.payload };
+    case actionTypes.GET_PRODUCT_CART_FAIL:
+      return { loading: 'false', error: action.payload };
+
+    default:
+      return state;
+  }
+};

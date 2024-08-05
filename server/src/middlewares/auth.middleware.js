@@ -9,6 +9,8 @@ export const isAuthenticatedUser = asyncHandler(async (req, res, next) => {
       req.cookies.accessToken ||
       req.header('Authorization')?.replace('Bearer ', '');
 
+    console.log(token);
+
     if (!token) {
       throw new ApiError(401, 'Unauthorized request ');
     }
@@ -22,7 +24,7 @@ export const isAuthenticatedUser = asyncHandler(async (req, res, next) => {
     if (!user) {
       throw new ApiError(401, 'Invalid Access Token');
     }
-    console.log(user);
+
     req.user = user;
 
     next();

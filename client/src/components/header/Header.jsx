@@ -17,7 +17,10 @@ import Search from './Search';
 import CustomButton from './CustomButton';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCartProducts } from '../../redux/actions/productActions';
+import { useData } from '../../contexts';
 
 const AppBarStyle = styled(AppBar)`
   background: white;
@@ -56,6 +59,21 @@ const Header = () => {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const { setCartList, account } = useData();
+
+  const dispatch = useDispatch();
+
+  const { product } = useSelector((state) => state.getCartItems);
+
+  useEffect(() => {
+    if (account) {
+      console.log(account);
+      dispatch(getCartProducts());
+
+      setCartList(product);
+    }
+  }, [dispatch, account]);
 
   const list = () => {
     return (

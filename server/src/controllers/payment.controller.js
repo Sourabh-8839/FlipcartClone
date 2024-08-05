@@ -1,5 +1,3 @@
-import paytmchecksum from '../paytm/PaytmChecksum.js';
-import { paytmParams, paytmMerchantkey } from '../constant.js';
 import { ApiResponse } from '../Utilies/apiResponse.js';
 import stripe from 'stripe';
 

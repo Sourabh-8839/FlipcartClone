@@ -20,6 +20,8 @@ router
 
 router.route('/getAllproducts').get(getAllProducts);
 router.route('/getproduct/:id').get(getProduct);
-router.route('/create-checkout-session').post(addPaytmGateway);
+router
+  .route('/create-checkout-session')
+  .post(isAuthenticatedUser, addPaytmGateway);
 
 export default router;
